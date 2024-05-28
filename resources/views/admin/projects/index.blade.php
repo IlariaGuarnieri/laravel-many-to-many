@@ -27,7 +27,7 @@
 
   {{-- route corretta {{route('admin.Project.store')}} --}}
   <div class="my-4">
-    <form action="{{ route('admin.Project.store') }}" method="POST" class="d-flex">
+    <form action="{{ route('admin.projects.store') }}" method="POST" class="d-flex">
       @csrf
       <input class="form-control me-2" name="title" type="input" placeholder="Nuovo progetto" aria-label="Search">
       <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Invia</button>
@@ -57,7 +57,7 @@
 
           <td>
             {{-- {{$project->type }} --}}
-            {{$project->type->title }}
+            {{$project->type}}
           </td>
 
 
@@ -69,7 +69,7 @@
             </button>
 
             {{-- BOTTONE DI DELETE --}}
-            <form action="{{ route('admin.Project.destroy', $project->id) }}" method="POST" onsubmit="return confirm('Sei sicuro di voler eliminare il progetto?')">
+            <form action="{{ route('admin.projects.destroy', $project->id) }}" method="POST" onsubmit="return confirm('Sei sicuro di voler eliminare il progetto?')">
               @csrf
               @method('DELETE')
               <button type="submit" class="btn btn-danger">

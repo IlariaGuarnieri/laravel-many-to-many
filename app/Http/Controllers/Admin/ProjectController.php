@@ -25,7 +25,7 @@ class ProjectController extends Controller
      */
     public function create()
     {
-        return view('admin.posts.create');
+        return view('admin.projects.create');
     }
 
     /**
@@ -41,14 +41,14 @@ class ProjectController extends Controller
         // se non esiste salvo ritorno a index con messaggio di successo
         $exists = Project::where('title', $request->title)->first();
         if ($exists) {
-            return redirect()->route('admin.Project.index')->with('error', 'Progetto gia esistente');
+            return redirect()->route('admin.projects.index')->with('error', 'Progetto gia esistente');
         } else {
             $new = new Project();
             $new->title = $request->title;
 
             $new->slug = Help::generateSlug($new->title, Project::class);
             $new->save();
-            return redirect()->route('admin.Project.index')->with('success', 'Progetto aggiunto con successo!');
+            return redirect()->route('admin.projects.index')->with('success', 'Progetto aggiunto con successo!');
         }
         // $form_data = $request->all();
         // $form_data['slug'] = Help::generateSlug();
@@ -105,6 +105,6 @@ class ProjectController extends Controller
     public function destroy(Project $project)
     {
             $project->delete();
-            return redirect()->route('admin.Project.index')->with('success', 'Progetto eliminato correttamente');
+            return redirect()->route('admin.projects.index')->with('success', 'Progetto eliminato correttamente');
     }
 }

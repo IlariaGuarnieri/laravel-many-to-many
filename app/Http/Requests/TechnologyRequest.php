@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class ProjectRequest extends FormRequest
+class TechnologyRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -22,17 +22,16 @@ class ProjectRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'title'=> 'required|min:3|max:100',
+            'title'=> 'required|min:3|max:100'
         ];
     }
 
     public function messages()
     {
         return [
-            'title.required'=> 'required',
-            'title.min'=> ':min',
-            'title.max'=> ':max',
-
+            'title.required'=> 'il nome è richiesto',
+            'title.min'=> ':min caratteri',
+            'title.max'=> ':max caratteri',
         ];
     }
 }

@@ -2,21 +2,21 @@
     <nav>
         <ul>
             <li>
-                <a href="{{ route('admin.Project.index') }}">
+                <a href="{{ route('admin.projects.index') }}">
                     <i class="fa-solid fa-list"></i>
                     Progetti
                 </a>
             </li>
             <li>
-                <a href="{{ route('admin.Project.create') }}">
+                <a href="{{ route('admin.projects.create') }}">
                     <i class="fa-solid fa-list"></i>
                     Nuovo progetto
                 </a>
             </li>
             <li>
-                <a href="#">
+                <a href="{{ route('admin.technologies.index')}}">
                     <i class="fa-solid fa-sim-card"></i>
-                    Tecnologie utilizzate
+                    Tecnologie
                 </a>
             </li>
             <li>
