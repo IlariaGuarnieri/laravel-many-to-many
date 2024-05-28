@@ -1,0 +1,40 @@
+@import '~bootstrap/scss/bootstrap';
+
+header{
+    height: 56px;
+}
+
+.main-wrapper{
+    height: calc(100vh - 56px);
+    background-color: pink;
+}
+
+aside{
+    width: 180px;
+    ul{
+        list-style: none;
+        li{
+            line-height: 30px;
+            font-size: .8rem;
+            a{
+                text-decoration: none;
+                color: white;
+                &:hover{
+                    text-decoration: underline;
+                }
+            }
+        }
+    }
+}
+
+// spazio
+.crud-table{
+    td:first-child{
+        width: 400px;
+    }
+    input{
+        border: none;
+        outline: none;
+    }
+}
+
