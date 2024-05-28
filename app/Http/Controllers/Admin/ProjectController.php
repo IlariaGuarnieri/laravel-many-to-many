@@ -81,9 +81,15 @@ class ProjectController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function edit(Project $project)
     {
-        return view('admin.projects.edit');
+        $title = 'Modifica progetto';
+        $route = route('admin.projects.update', $project);
+        $button = 'Aggiorna progetto';
+        $method = 'PUT';
+        $types = Type::all();
+        $technologies = Technology::all();
+        return view('admin.projects.edit', compact('title', 'route', 'project', 'button', 'method', 'types', 'technologies'));
     }
 
     /**
@@ -91,26 +97,31 @@ class ProjectController extends Controller
      */
     public function update(ProjectRequest $request, Project $project)
     {
-        $val_data = $request->validate(
-            [
-                'title' => 'required|min:2|max:20'
-            ],
-            [
-                'title.required' => 'devi inserire il nome',
-                'title.min' => 'devi inserire :min caratteri',
-                'title.max' => 'devi inserire :max caratteri'
-            ]
-        );
+        // $val_data = $request->validate(
+        //     [
+        //         'title' => 'required|min:2|max:20'
+        //     ],
+        //     [
+        //         'title.required' => 'devi inserire il nome',
+        //         'title.min' => 'devi inserire :min caratteri',
+        //         'title.max' => 'devi inserire :max caratteri'
+        //     ]
+        // );
 
-        $exists = Project::where('title', $request->title)->first();
+        $form_data = $request->all();
+        $exists = Project::where('title', $form_data['title'])->first();
         if ($exists) {
-            return redirect()->route('admin.Project.index')->with('error', 'Progetto gia esistente');
+            return redirect()->route('admin.projects.index')->with('error', 'Progetto gia esistente');
         } else {
-            $val_data['slug'] = Help::generateSlug($request->title, Project::class);
-            $project->update($val_data);
-
-            return redirect()->route('admin.Project.index')->with('success', 'Progetto aggiunto');
+            if ($form_data['title'] === $project->title) {
+                $form_data['slug'] = $project->slug;
+            } else {
+                $form_data['slug'] = Help::generateSlug($form_data['title'], Project::class);
+            }
         }
+        $project->update($form_data);
+
+        return redirect()->route('admin.projects.index', $project);
     }
 
     /**

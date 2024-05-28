@@ -93,10 +93,14 @@
             <a href="{{ route('admin.projects.show', $project->id) }}" class="btn btn-success me-3">
               <i class="fa-solid fa-eye"></i>
             </a>
+
             {{-- BOTTONE EDIT --}}
-            <button class="btn btn-warning" onclick="submitForm({{ $project->id }})">
+            <a href="{{ route('admin.projects.edit', $project->id) }}" class="btn btn-warning me-3">
+                <i class="fa-solid fa-pen"></i>
+            </a>
+            {{-- <button class="btn btn-warning" onclick="submitForm({{ $project->id }})">
               <i class="fa-solid fa-pen"></i>
-            </button>
+            </button> --}}
 
             {{-- BOTTONE DI DELETE --}}
             <form action="{{ route('admin.projects.destroy', $project->id) }}" method="POST"
@@ -116,11 +120,10 @@
   </table>
 
   <script>
-    function submitForm(id) {
-      // console.log(id);
-      const form = document.getElementById(`form-editid-${id}`);
-      form.submit();
-    }
+    // function submitForm(id) {
+    //   const form = document.getElementById(`form-editid-${id}`);
+    //   form.submit();
+    // }
   </script>
 
 @endsection
