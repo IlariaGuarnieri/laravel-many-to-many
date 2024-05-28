@@ -4,8 +4,10 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Models\Project;
 use App\Http\Requests\ProjectRequest;
+use App\Models\Project;
+use App\Models\Type;
+use App\Models\Technology;
 use App\Functions\Helper as Help;
 
 class ProjectController extends Controller
@@ -16,7 +18,8 @@ class ProjectController extends Controller
     public function index()
     {
         $projects = Project::all();
-        return view('admin.projects.index', compact('projects'));
+        $technologies = Technology::all();
+        return view('admin.projects.index', compact('projects', 'technologies'));
         // dd($projects);
     }
 
@@ -39,21 +42,27 @@ class ProjectController extends Controller
         // prima di inserire nuovo proj verifico che non ci sia gia
         // se esiste ritorno a inde con mess di errore
         // se non esiste salvo ritorno a index con messaggio di successo
-        $exists = Project::where('title', $request->title)->first();
+        $form_data = $request->all();
+        $exists = Project::where('title', $form_data['title'])->first();
         if ($exists) {
             return redirect()->route('admin.projects.index')->with('error', 'Progetto gia esistente');
         } else {
             $new = new Project();
-            $new->title = $request->title;
+            // $new->title = $request->title;
 
-            $new->slug = Help::generateSlug($new->title, Project::class);
+            $form_data['slug'] = Help::generateSlug($form_data['title'], Project::class);
+
+            $new->fill($form_data);
             $new->save();
+
+
+            //l'associazione many to many deve avvenire dopo il salvataggio del dato nel db
+            //se trovo la chiave tecnologies inserisco la relazione nella tabella pivot
+            if (array_key_exists('technologies', $form_data)) {
+                $new->technologies()->attach($form_data['technologies']);
+            }
             return redirect()->route('admin.projects.index')->with('success', 'Progetto aggiunto con successo!');
         }
-        // $form_data = $request->all();
-        // $form_data['slug'] = Help::generateSlug();
-
-
     }
 
     /**
@@ -109,7 +118,7 @@ class ProjectController extends Controller
      */
     public function destroy(Project $project)
     {
-            $project->delete();
-            return redirect()->route('admin.projects.index')->with('success', 'Progetto eliminato correttamente');
+        $project->delete();
+        return redirect()->route('admin.projects.index')->with('success', 'Progetto eliminato correttamente');
     }
 }

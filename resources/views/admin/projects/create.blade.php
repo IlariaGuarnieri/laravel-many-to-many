@@ -7,9 +7,8 @@
   <h1>nuovo progetto</h1>
   <form
   class="w-100"
-  action="{{ route('admin.Project.store') }}"
-  method="POST"
-  enctype="multipart/form-data">
+  action="{{ route('admin.projects.store') }}"
+  method="POST">
 @csrf
 
 <div class="mb-3">

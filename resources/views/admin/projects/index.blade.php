@@ -30,9 +30,28 @@
     <form action="{{ route('admin.projects.store') }}" method="POST" class="d-flex">
       @csrf
       <input class="form-control me-2" name="title" type="input" placeholder="Nuovo progetto" aria-label="Search">
+
+        {{-- associazione tecnologie in zona di aggiunta project--}}
+      <label for="type" class="form-label">Tecnologia: </label>
+      <div class="btn-group btn-group-sm" role="group">
+        @foreach ($technologies as $technology)
+          <input
+          name="technologies[]"
+          id="technology_{{$technology->id}}"
+          class="btn-check"
+          autocomplete="off"
+          type="checkbox"
+          value="{{$technology->id}}"
+          >
+
+          <label class="btn btn-outline-primary" for="technology_{{$technology->id}}">{{ $technology->title }}</label>
+        @endforeach
+      </div>
+
       <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Invia</button>
     </form>
   </div>
+
   <table class="table crud-table">
     <thead>
       <tr>
@@ -57,34 +76,35 @@
           </td>
 
           <td>
-            {{$project->type}}
+            {{-- {{$project->type}} --}}
           </td>
           <td>
 
             @forelse ($project->technologies as $technology)
-            <span class="badge bg-info text-white">{{$technology->title}}</span>
+              <span class="badge bg-info text-white">{{$technology->title}}</span>
             @empty
-                -no technology-
+              -no technology-
             @endforelse
           </td>
 
-        {{-- BOTTONE --}}
-        <td class="d-flex ">
-          {{-- BOTTONE SHOW --}}
-          <a href="{{ route('admin.projects.show', $project->id) }}" class="btn btn-success me-3">
-            <i class="fa-solid fa-eye"></i>
-          </a>
-          {{-- BOTTONE EDIT --}}
+          {{-- BOTTONE --}}
+          <td class="d-flex ">
+            {{-- BOTTONE SHOW --}}
+            <a href="{{ route('admin.projects.show', $project->id) }}" class="btn btn-success me-3">
+              <i class="fa-solid fa-eye"></i>
+            </a>
+            {{-- BOTTONE EDIT --}}
             <button class="btn btn-warning" onclick="submitForm({{ $project->id }})">
               <i class="fa-solid fa-pen"></i>
             </button>
 
             {{-- BOTTONE DI DELETE --}}
-            <form action="{{ route('admin.projects.destroy', $project->id) }}" method="POST" onsubmit="return confirm('Sei sicuro di voler eliminare il progetto?')">
+            <form action="{{ route('admin.projects.destroy', $project->id) }}" method="POST"
+              onsubmit="return confirm('Sei sicuro di voler eliminare il progetto?')">
               @csrf
               @method('DELETE')
               <button type="submit" class="btn btn-danger">
-              <i class="fa-solid fa-trash"></i>
+                <i class="fa-solid fa-trash"></i>
               </button>
             </form>
 
