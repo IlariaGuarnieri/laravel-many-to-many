@@ -39,6 +39,7 @@
         <th scope="col">ID PROGETTO</th>
         <th scope="col">NOME PROGETTO</th>
         <th scope="col">TYPE</th>
+        <th scope="col">TECNOLOGIA</th>
         <th scope="col">AZIONE</th>
       </tr>
     </thead>
@@ -56,8 +57,15 @@
           </td>
 
           <td>
-            {{-- {{$project->type }} --}}
             {{$project->type}}
+          </td>
+          <td>
+
+            @forelse ($project->technologies as $technology)
+            <span class="badge bg-info text-white">{{$technology->title}}</span>
+            @empty
+                -no technology-
+            @endforelse
           </td>
 
 
