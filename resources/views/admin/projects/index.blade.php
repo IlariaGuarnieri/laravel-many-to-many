@@ -68,10 +68,13 @@
             @endforelse
           </td>
 
-
-          {{-- BOTTONE DI EDIT --}}
-          <td class="d-flex ">
-
+        {{-- BOTTONE --}}
+        <td class="d-flex ">
+          {{-- BOTTONE SHOW --}}
+          <a href="{{ route('admin.projects.show', $project->id) }}" class="btn btn-success me-3">
+            <i class="fa-solid fa-eye"></i>
+          </a>
+          {{-- BOTTONE EDIT --}}
             <button class="btn btn-warning" onclick="submitForm({{ $project->id }})">
               <i class="fa-solid fa-pen"></i>
             </button>
