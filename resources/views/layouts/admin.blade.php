@@ -23,7 +23,7 @@
 
         @include('admin.partials.header')
 
-        <div class="main-wrapper d-flex">
+        <div class="main-wrapper ">
             @include('admin.partials.aside')
 
             <div class="content">

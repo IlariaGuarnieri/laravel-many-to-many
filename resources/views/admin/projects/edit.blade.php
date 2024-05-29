@@ -22,7 +22,9 @@
           <div class="btn-group btn-group-sm" role="group">
             @foreach ($technologies as $technology)
               <div class="form-check">
-                <input class="form-check-input" type="checkbox" name="technologies[]" id="technology_{{$technology->id}}" value="{{$technology->id}}" {{ in_array($technology->id, $project->technologies->pluck('id')->toArray()) ? 'checked' : '' }}>
+                <input class="form-check-input" type="checkbox" name="technologies[]" id="technology_{{$technology->id}}" value="{{$technology->id}}" @if (
+                    ($errors->any() && in_array($technology->id, old('technologies', []))) ||
+                        (!$errors->any() && $project?->technologies->contains($technology))) checked @endif>
                 <label class="form-check-label" for="technology_{{$technology->id}}">
                   {{$technology->title}}
                 </label>

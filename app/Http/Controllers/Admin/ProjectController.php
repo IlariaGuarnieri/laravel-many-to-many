@@ -98,7 +98,7 @@ class ProjectController extends Controller
     public function update(Request $request, Project $project)
 {
     // Validazione dei dati del form
-    $validatedData = $request->validate([
+    $form_data = $request->validate([
         'title' => 'required|string|min:2|max:20', // Validazione del titolo
         'technologies' => 'nullable|array',
     ], [
@@ -108,16 +108,16 @@ class ProjectController extends Controller
     ]);
 
     // Verifica se è stata inviata almeno una tecnologia nel form
-    if ($request->has('technologies')) {
-        // Sincronizza le tecnologie associate al progetto con quelle selezionate nel form
-        $project->technologies()->sync($request->input('technologies'));
+    if (array_key_exists('technologies', $form_data)) {
+        // aggiorno tutte le relazioni elimimando quelle che eventualmente non ci sono più
+        $project->technologies()->sync($form_data['technologies']);
     } else {
-        // Rimuovi tutte le tecnologie associate al progetto se nessuna è stata selezionata
+        // Se non sono presenti ID dentro technologies elimino tutte le relazioni con technologies
         $project->technologies()->detach();
     }
 
     $project->update([
-        'title' => $validatedData['title'], // Aggiorna il titolo del progetto
+        'title' => $form_data['title'], // Aggiorna il titolo del progetto
     ]);
 
     // Reindirizzamento e messaggio di successo
