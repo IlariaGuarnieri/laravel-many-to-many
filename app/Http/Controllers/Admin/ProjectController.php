@@ -9,6 +9,7 @@ use App\Models\Project;
 use App\Models\Type;
 use App\Models\Technology;
 use App\Functions\Helper as Help;
+use Illuminate\Support\Facades\Storage;
 
 class ProjectController extends Controller
 {
@@ -43,6 +44,16 @@ class ProjectController extends Controller
         // se esiste ritorno a inde con mess di errore
         // se non esiste salvo ritorno a index con messaggio di successo
         $form_data = $request->all();
+
+        //verifico esistenza della chiave 'image' in $form_data
+        if(array_key_exists('image', $form_data)){
+            //salvo img caricata da utente in storage
+            $image_path = Storage::put('uploads', $form_data['image']);
+            dd($image_path);
+        }
+
+
+
         $exists = Project::where('title', $form_data['title'])->first();
         if ($exists) {
             return redirect()->route('admin.projects.index')->with('error', 'Progetto gia esistente');

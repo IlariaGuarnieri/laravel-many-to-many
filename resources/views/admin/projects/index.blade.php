@@ -48,6 +48,17 @@
         @endforeach
       </div>
 
+      <div class="">
+        <label for="image" class="form-label">immagine</label>
+        <input
+        id="image"
+        type="file"
+        class="form-control" @error('title')
+        is-invalid @enderror
+          placeholder="inserisci titolo" name="title">
+      </div>
+
+
       <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Invia</button>
     </form>
   </div>
@@ -55,8 +66,9 @@
   <table class="table crud-table">
     <thead>
       <tr>
-        <th scope="col">ID PROGETTO</th>
+        <th scope="col-5">ID PROGETTO</th>
         <th scope="col">NOME PROGETTO</th>
+        <th scope="col">IMMAGINE</th>
         <th scope="col">TYPE</th>
         <th scope="col">TECNOLOGIA</th>
         <th scope="col">AZIONE</th>
@@ -76,6 +88,10 @@
           </td>
 
           <td>
+
+          </td>
+
+          <td class="tit">
             {{-- questo si trova nella show  --}}
             {{-- {{$project->type->title}} --}}
           </td>
