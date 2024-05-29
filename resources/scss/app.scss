@@ -1,15 +1,13 @@
 @import '~bootstrap/scss/bootstrap';
 
-header{
-    height: 56px;
-}
 
 .main-wrapper{
     height: calc(100vh - 56px);
-    background-color: pink;
+    background-color: #F2EEEB;
 }
 
 aside{
+    background-color: #C0A58F;
     width: 180px;
     ul{
         list-style: none;
@@ -38,3 +36,68 @@ input{
     border: none;
     outline: none;
 }
+
+header{
+    height: 56px;
+    .admin_i{
+        background-color: #c29975;
+        padding:7px;
+        border-radius: 50%;
+    }
+    .center{
+        text-align: center;
+    }
+    .logout{
+        font-size: 15px;
+    }
+    .navbar{
+        color: #817D7A;
+    }
+}
+
+.clor{
+   color: #55524f;
+   border: none;
+}
+
+.gradient-background {
+    background: linear-gradient(to top, #F2EEEB, #C0A58F);
+}
+
+.nav-link{
+    padding-right: 40px;
+}
+
+.main-wrapper{
+    padding-left: 20px;
+    padding-right: 20px;
+}
+
+a{
+    text-decoration: none;
+    padding-left: 5px;
+    color: #55524f;
+}
+
+
+//  Stile per il dropdown
+.dropdown-menu {
+    background-color: #efded1f9; /* Colore di sfondo */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Ombra leggera */
+    padding: 10px 0; /* Spaziatura interna */
+    border: none;
+  }
+
+  // Stile per gli elementi del dropdown
+  .dropdown-menu a {
+    color: #55524f;
+    font-size: 14px;
+    padding: 8px 20px; // Padding per gli elementi del menu
+    text-decoration: none;
+    display: block; /* Visualizza gli elementi come blocchi */
+    transition: background-color 0.3s ease; //Transizione del colore di sfondo */
+  }
+
+  .dropdown-menu a:hover {
+    background-color: #f1c29ee6; //Cambia il colore di sfondo al passaggio del mouse
+  }

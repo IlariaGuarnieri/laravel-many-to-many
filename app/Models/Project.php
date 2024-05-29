@@ -12,7 +12,8 @@ class Project extends Model
     // essendo one to many il project appartiene a una categoria quindi anche il model
     //in one to many(dalla parte del belongsTo) il nome della funzione deve essere il nome del model(al singolare), infaati type() è un nome arbitrario m mglio tenerlo cosi
     //questa funzione verra letta come una proprietà del model es $post->category
-    public function type(){
+    public function type()
+    {
         return $this->belongsTo(Type::class);
 
     }

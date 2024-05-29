@@ -26,7 +26,7 @@
   @endif
 
   {{-- route corretta {{route('admin.Project.store')}} --}}
-  <div class="my-4">
+  <div class="my-4 m-4">
     <form action="{{ route('admin.projects.store') }}" method="POST" class="d-flex">
       @csrf
       <input class="form-control me-2" name="title" type="input" placeholder="Nuovo progetto" aria-label="Search">
@@ -76,7 +76,8 @@
           </td>
 
           <td>
-            {{-- {{$project->type}} --}}
+            {{-- questo si trova nella show  --}}
+            {{-- {{$project->type->title}} --}}
           </td>
           <td>
 

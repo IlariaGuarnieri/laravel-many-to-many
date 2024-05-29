@@ -1,4 +1,4 @@
-<aside class="bg-dark navbar-dark text-white">
+{{-- <aside class=" text-white gradient-background">
     <nav>
         <ul>
             <li>
@@ -9,7 +9,7 @@
             </li>
             <li>
                 <a href="{{ route('admin.projects.create') }}">
-                    <i class="fa-solid fa-list"></i>
+                    <i class="fa-solid fa-plus"></i>
                     Nuovo progetto
                 </a>
             </li>
@@ -27,4 +27,4 @@
             </li>
         </ul>
     </nav>
-</aside>
+</aside> --}}

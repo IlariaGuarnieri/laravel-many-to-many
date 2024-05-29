@@ -4,10 +4,11 @@
 
   {{-- card --}}
   <div class="card" style="width: 18rem;">
-    <img src="..." class="card-img-top" alt="...">
+    <img src="" class="card-img-top" alt="">
     <div class="card-body">
       <h5 class="card-title">Nome progetto: {{ $project->title }}</h5>
       <p class="card-text">Id progetto: {{ $project->id }}</p>
+      <p>Tipologia: {{$project->type->title}}</p>
 
       {{-- BOTTONI --}}
       <div class="d-flex">

@@ -95,34 +95,35 @@ class ProjectController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(ProjectRequest $request, Project $project)
-    {
-        // $val_data = $request->validate(
-        //     [
-        //         'title' => 'required|min:2|max:20'
-        //     ],
-        //     [
-        //         'title.required' => 'devi inserire il nome',
-        //         'title.min' => 'devi inserire :min caratteri',
-        //         'title.max' => 'devi inserire :max caratteri'
-        //     ]
-        // );
+    public function update(Request $request, Project $project)
+{
+    // Validazione dei dati del form
+    $validatedData = $request->validate([
+        'title' => 'required|string|min:2|max:20', // Validazione del titolo
+        'technologies' => 'nullable|array',
+    ], [
+        'title.required' => 'Devi inserire il nome del progetto.',
+        'title.min' => 'Il nome del progetto deve essere di almeno :min caratteri.',
+        'title.max' => 'Il nome del progetto non può superare :max caratteri.',
+    ]);
 
-        $form_data = $request->all();
-        $exists = Project::where('title', $form_data['title'])->first();
-        if ($exists) {
-            return redirect()->route('admin.projects.index')->with('error', 'Progetto gia esistente');
-        } else {
-            if ($form_data['title'] === $project->title) {
-                $form_data['slug'] = $project->slug;
-            } else {
-                $form_data['slug'] = Help::generateSlug($form_data['title'], Project::class);
-            }
-        }
-        $project->update($form_data);
-
-        return redirect()->route('admin.projects.index', $project);
+    // Verifica se è stata inviata almeno una tecnologia nel form
+    if ($request->has('technologies')) {
+        // Sincronizza le tecnologie associate al progetto con quelle selezionate nel form
+        $project->technologies()->sync($request->input('technologies'));
+    } else {
+        // Rimuovi tutte le tecnologie associate al progetto se nessuna è stata selezionata
+        $project->technologies()->detach();
     }
+
+    $project->update([
+        'title' => $validatedData['title'], // Aggiorna il titolo del progetto
+    ]);
+
+    // Reindirizzamento e messaggio di successo
+    return redirect()->route('admin.projects.index')->with('success', 'Progetto aggiornato con successo!');
+}
+
 
     /**
      * Remove the specified resource from storage.
